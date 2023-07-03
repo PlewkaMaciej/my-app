@@ -1,0 +1,11 @@
+{
+  "login": "Zaloguj się",
+  "register": "Zarejestruj się",
+  "email": "Email",
+  "password": "Hasło",
+  "required": "Pole wymagane",
+  "tooshort": "Hasło jest zbyt krótkie",
+  "toolong": "Hasło jest zbyt długie",
+  "invalidemail": "Nieprawidłowy adres e-mail",
+  "signUp": "Zarejestruj konto"
+}

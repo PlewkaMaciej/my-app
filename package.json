@@ -1,0 +1,42 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.3",
+    "@mui/material": "^5.13.6",
+    "@types/node": "20.3.2",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "cookie": "^0.5.0",
+    "country-flag-icons": "^1.5.7",
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.7",
+    "firebase": "^9.23.0",
+    "formik": "^2.4.2",
+    "framer-motion": "^10.12.18",
+    "i18next": "^23.2.6",
+    "js-cookie": "^3.0.5",
+    "next": "13.4.7",
+    "next-i18next": "^14.0.0",
+    "react": "18.2.0",
+    "react-country-flag": "^3.1.0",
+    "react-dom": "18.2.0",
+    "react-flags-select": "^2.2.3",
+    "react-icons": "^4.10.1",
+    "react-select": "^5.7.3",
+    "typescript": "5.1.6",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.3"
+  }
+}

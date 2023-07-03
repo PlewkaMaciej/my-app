@@ -1,0 +1,11 @@
+{
+  "login": "Sign in",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "required": "Required",
+  "tooshort": "Password is too short",
+  "toolong": "Password is too long",
+  "invalidemail": "Invalid email address",
+  "signUp": "Register account"
+}
