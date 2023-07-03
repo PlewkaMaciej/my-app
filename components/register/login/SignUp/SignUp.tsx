@@ -5,13 +5,20 @@ import { useFormik } from "formik";
 import { signInInitialValues } from "../SignIn/InitialValues";
 import { passwordValidationSchema } from "../SignIn/ValidationSchema";
 import { useTranslation } from "next-i18next";
+import useRegister from "@/hooks/useRegister";
+
 export const SignUp = () => {
   const { t } = useTranslation("login");
   const formik = useFormik({
     initialValues: signInInitialValues,
     validationSchema: passwordValidationSchema,
-    onSubmit: (values) => {},
+    onSubmit: async (values) => {
+      await register({ email: values.email, password: values.password });
+      formik.resetForm();
+    },
   });
+
+  const { register, isLoading, isError } = useRegister();
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -40,7 +47,7 @@ export const SignUp = () => {
             style={{ maxWidth: "150px", height: "50px" }}
             text={t("signUp")}
             type="submit"
-            disabled={!formik.isValid || !formik.dirty}
+            disabled={!formik.isValid || !formik.dirty || isLoading}
           />
         </Box>
       </Box>

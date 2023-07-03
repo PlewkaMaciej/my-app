@@ -4,5 +4,7 @@
   "buyACourse": " Buy a course",
   "contact": "Contact",
   "login": "Sign in",
-  "aboutCourse": "About course"
+  "aboutCourse": "About course",
+  "myAcc": "My account",
+  "logout": "Log out"
 }

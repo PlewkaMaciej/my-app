@@ -2,7 +2,11 @@ import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastContainer } from "react-toastify"; // Dodaj import komponentu ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Dodaj import stylów CSS dla React Toastify
 import "@fontsource/roboto";
+
 export const theme = createTheme({
   typography: {
     fontFamily: "Roboto, sans-serif",
@@ -24,13 +28,34 @@ export const theme = createTheme({
     },
   },
 });
+const toastContainerStyle = {
+  zIndex: 9999,
+};
+const toastStyle = {
+  background: "white",
+  color: "black",
+};
 
 function App({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient();
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar
+          closeOnClick
+          pauseOnHover
+          draggable
+          pauseOnFocusLoss={false}
+          style={toastContainerStyle}
+          toastStyle={toastStyle}
+        />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

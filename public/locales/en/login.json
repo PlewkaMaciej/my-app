@@ -7,5 +7,11 @@
   "tooshort": "Password is too short",
   "toolong": "Password is too long",
   "invalidemail": "Invalid email address",
-  "signUp": "Register account"
+  "signUp": "Register account",
+  "registerSuccess": "Registration successful!",
+  "registerFailed": "Something went wrong. Please try again.",
+  "loginSuccess": "Login successful!",
+  "loginFailed": "Something went wrong with the login. Please try again.",
+  "logoutSuccess": "Successfully logged out!",
+  "logoutFailed": "Logout failed!"
 }

@@ -5,6 +5,9 @@ import { AiOutlineUser } from "react-icons/ai";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import ReactFlagsSelect from "react-flags-select";
+import useAuth from "@/hooks/useAuth";
+import useLogout from "@/hooks/useLogout";
+import { BiLogOutCircle } from "react-icons/bi";
 
 const menuItem = [
   { name: "aboutUs", href: "/" },
@@ -15,6 +18,7 @@ const menuItem = [
 ];
 
 export const DesktopHeader = () => {
+  const user = useAuth();
   const router = useRouter();
   const { t, i18n } = useTranslation("common");
 
@@ -23,6 +27,8 @@ export const DesktopHeader = () => {
     i18n.changeLanguage(newLocale);
     router.push(router.pathname, router.asPath, { locale: newLocale });
   };
+  const { logout } = useLogout();
+
   return (
     <Box sx={styles.headerBox}>
       <Box
@@ -72,12 +78,32 @@ export const DesktopHeader = () => {
               flexDirection: "column",
             }}
             onClick={() => {
-              router.push("/login");
+              user ? router.push("/userProfile") : router.push("/login");
             }}
           >
             <AiOutlineUser size={36} color="white" />
-            <Typography variant="body1">{t("login")}</Typography>
+            {user ? (
+              <Typography variant="body1">{t("myAcc")}</Typography>
+            ) : (
+              <Typography variant="body1">{t("login")}</Typography>
+            )}
           </Box>
+
+          {user && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                cursor: "pointer",
+                flexDirection: "column",
+              }}
+              onClick={() => logout()}
+            >
+              <BiLogOutCircle size={36} color="white" />
+              <Typography variant="body1">{t("logout")}</Typography>
+            </Box>
+          )}
           {router.locale && (
             <Box sx={{ color: "black" }}>
               <ReactFlagsSelect

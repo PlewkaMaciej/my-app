@@ -13,10 +13,13 @@ import { BiMenu } from "react-icons/bi";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import ReactFlagsSelect from "react-flags-select";
+import { theme } from "@/pages/_app";
 import { useState } from "react";
 import { styles } from "./styles";
 import logo from "../../../../public/images/logo_transparent.png";
-
+import useAuth from "@/hooks/useAuth";
+import useLogout from "@/hooks/useLogout";
+import { BiLogOutCircle } from "react-icons/bi";
 const menuItem = [
   { name: "aboutUs", href: "/" },
   { name: "blog", href: "/blog" },
@@ -26,10 +29,11 @@ const menuItem = [
 ];
 
 export const MobileHeader = () => {
+  const user = useAuth();
   const router = useRouter();
   const { t, i18n } = useTranslation("common");
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const { logout } = useLogout();
   const handleSelect = (countryCode: string) => {
     const newLocale = countryCode === "GB" ? "en" : "pl";
     i18n.changeLanguage(newLocale);
@@ -40,7 +44,9 @@ export const MobileHeader = () => {
     router.push(href);
     setDrawerOpen(false);
   };
-
+  const menuItemsWithAccount = user
+    ? [...menuItem, { name: "myAcc", href: "/userProfile" }]
+    : menuItem;
   return (
     <Box sx={styles.headerBox}>
       <Box
@@ -68,20 +74,22 @@ export const MobileHeader = () => {
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
           PaperProps={{
-            style: { backgroundColor: "#808080", color: "#fff" }, // style for drawer
+            style: { backgroundColor: "#808080", color: "#fff", width: "30%" },
           }}
         >
           <List>
-            {menuItem.map((item, index) => (
-              <ListItem
-                button
-                key={index}
-                onClick={() => handleMenuClick(item.href)}
-              >
+            {menuItemsWithAccount.map((item, index) => (
+              <ListItem key={index} onClick={() => handleMenuClick(item.href)}>
                 <ListItemText primary={t(item.name)} />
               </ListItem>
             ))}
-            <Box sx={{ color: "black" }}>
+            <Box
+              sx={{
+                color: "black",
+                pl: "3%",
+                pr: "3%",
+              }}
+            >
               <ReactFlagsSelect
                 selected={router.locale === "en" ? "GB" : "PL"}
                 countries={["PL", "GB"]}
@@ -113,14 +121,36 @@ export const MobileHeader = () => {
               gap: "8px",
               cursor: "pointer",
               flexDirection: "column",
+              [theme.breakpoints.down(550)]: {
+                display: "none",
+              },
             }}
             onClick={() => {
-              router.push("/login");
+              user ? router.push("/userProfile") : router.push("/login");
             }}
           >
             <AiOutlineUser size={36} color="white" />
-            <Typography variant="body1">{t("login")}</Typography>
+            {user ? (
+              <Typography variant="body1">{t("myAcc")}</Typography>
+            ) : (
+              <Typography variant="body1">{t("login")}</Typography>
+            )}
           </Box>
+          {user && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                cursor: "pointer",
+                flexDirection: "column",
+              }}
+              onClick={() => logout()}
+            >
+              <BiLogOutCircle size={36} color="white" />
+              <Typography variant="body1">{t("logout")}</Typography>
+            </Box>
+          )}
         </Box>
       </Box>
     </Box>

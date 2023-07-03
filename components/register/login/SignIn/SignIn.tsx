@@ -5,12 +5,17 @@ import { useFormik } from "formik";
 import { signInInitialValues } from "./InitialValues";
 import { passwordValidationSchema } from "./ValidationSchema";
 import { useTranslation } from "next-i18next";
+import useLogin from "@/hooks/useLogin";
 export const SignIn = () => {
   const { t } = useTranslation("login");
+  const { login, isLoading } = useLogin();
+
   const formik = useFormik({
     initialValues: signInInitialValues,
     validationSchema: passwordValidationSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      login(values);
+    },
   });
 
   return (
@@ -40,7 +45,7 @@ export const SignIn = () => {
             style={{ maxWidth: "150px", height: "50px" }}
             text={t("login")}
             type="submit"
-            disabled={!formik.isValid || !formik.dirty}
+            disabled={!formik.isValid || !formik.dirty || isLoading}
           />
         </Box>
       </Box>
