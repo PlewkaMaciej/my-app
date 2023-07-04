@@ -6,5 +6,7 @@
   "login": "Sign in",
   "aboutCourse": "About course",
   "myAcc": "My account",
-  "logout": "Log out"
+  "logout": "Log out",
+  "logoutSuccess": "Successfully logged out!",
+  "logoutFailed": "Logout failed!"
 }

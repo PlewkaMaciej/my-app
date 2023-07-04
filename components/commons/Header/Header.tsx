@@ -4,7 +4,7 @@ import { MobileHeader } from "./MobileHeader/MobileHeader";
 import { theme } from "@/pages/_app";
 
 export const Header = () => {
-  const isMobile = useMediaQuery(theme.breakpoints.down(1300));
+  const isMobile = useMediaQuery(theme.breakpoints.down(1500));
 
   return isMobile ? <MobileHeader /> : <DesktopHeader />;
 };

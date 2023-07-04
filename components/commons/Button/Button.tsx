@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, Typography } from "@mui/material";
 
 interface CustomButtonProps extends ButtonProps {
   text: string;
@@ -27,7 +27,12 @@ export const CustomButton = ({
       disabled={disabled}
       {...rest}
     >
-      {text}
+      <Typography
+        variant="button"
+        style={{ fontWeight: 600, fontSize: "16px" }}
+      >
+        {text}
+      </Typography>
     </Button>
   );
 };

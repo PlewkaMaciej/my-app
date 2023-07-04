@@ -1,0 +1,14 @@
+{
+  "addBlog": "Dodaj post",
+  "blog": "Blog",
+  "needToLoginForAddingPost": "Zaloguj się by dodawać posty",
+  "addPhoto": "Dodaj zdjęcia (opcjonalnie)",
+  "addPhotoButton": "Dodaj zdjęcie",
+  "or": "albo",
+  "dragAndDropFile": "przeciągnij i upuść plik",
+  "required": "Pole wymagane",
+  "addTitle": "Dodaj tytuł bloga",
+  "title": "Tytuł",
+  "addBlogText": "Dodaj tekst",
+  "addPost": "Dodaj nowy post"
+}

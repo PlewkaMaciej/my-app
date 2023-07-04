@@ -44,7 +44,7 @@ export const SignUp = () => {
         />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <CustomButton
-            style={{ maxWidth: "150px", height: "50px" }}
+            style={{ maxWidth: "250px", height: "50px" }}
             text={t("signUp")}
             type="submit"
             disabled={!formik.isValid || !formik.dirty || isLoading}

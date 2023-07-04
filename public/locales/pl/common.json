@@ -6,5 +6,7 @@
   "login": "Zaloguj się",
   "aboutCourse": "O kursie",
   "myAcc": "Moje konto",
-  "logout": "Wyloguj się"
+  "logout": "Wyloguj się",
+  "logoutSuccess": "Wylogowanie udane!",
+  "logoutFailed": "Wylogowanie nieudane!"
 }

@@ -11,7 +11,5 @@
   "registerSuccess": "Rejestracja udana!",
   "registerFailed": "Coś poszło nie tak. Spróbuj ponownie.",
   "loginSuccess": "Logowanie udane!",
-  "loginFailed": "Coś poszło nie tak podczas logowania. Spróbuj ponownie.",
-  "logoutSuccess": "Wylogowanie udane!",
-  "logoutFailed": "Wylogowanie nieudane!"
+  "loginFailed": "Coś poszło nie tak podczas logowania. Spróbuj ponownie."
 }

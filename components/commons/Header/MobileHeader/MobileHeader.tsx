@@ -58,29 +58,59 @@ export const MobileHeader = () => {
           width: "100%",
           pr: "3%",
           pl: "3%",
+          [theme.breakpoints.down(360)]: {
+            justifyContent: "center",
+          },
         }}
       >
         <IconButton
           edge="start"
           color="inherit"
           aria-label="menu"
-          sx={{ mr: 2 }}
+          sx={{ mr: 2, height: "100px" }}
           onClick={() => setDrawerOpen(true)}
         >
-          <BiMenu />
+          <BiMenu size={36} />
         </IconButton>
         <Drawer
           anchor="left"
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
           PaperProps={{
-            style: { backgroundColor: "#808080", color: "#fff", width: "30%" },
+            style: {
+              backgroundColor: "#F8F8F8",
+              color: "#333",
+              width: "200px",
+            },
           }}
         >
           <List>
             {menuItemsWithAccount.map((item, index) => (
-              <ListItem key={index} onClick={() => handleMenuClick(item.href)}>
-                <ListItemText primary={t(item.name)} />
+              <ListItem
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  borderBottom: "1px solid black",
+                  "&:hover": {
+                    backgroundColor: "#E0E0E0",
+                    cursor: "pointer",
+                  },
+                  padding: "10px 20px",
+                }}
+                key={index}
+                onClick={() => handleMenuClick(item.href)}
+              >
+                <ListItemText
+                  primary={t(item.name)}
+                  primaryTypographyProps={{
+                    variant: "h6",
+                    style: {
+                      color: "#333",
+                      fontWeight: "bold",
+                    },
+                  }}
+                />
               </ListItem>
             ))}
             <Box
@@ -88,6 +118,7 @@ export const MobileHeader = () => {
                 color: "black",
                 pl: "3%",
                 pr: "3%",
+                pt: "6%",
               }}
             >
               <ReactFlagsSelect
@@ -144,6 +175,9 @@ export const MobileHeader = () => {
                 gap: "8px",
                 cursor: "pointer",
                 flexDirection: "column",
+                [theme.breakpoints.down(360)]: {
+                  display: "none",
+                },
               }}
               onClick={() => logout()}
             >

@@ -11,7 +11,5 @@
   "registerSuccess": "Registration successful!",
   "registerFailed": "Something went wrong. Please try again.",
   "loginSuccess": "Login successful!",
-  "loginFailed": "Something went wrong with the login. Please try again.",
-  "logoutSuccess": "Successfully logged out!",
-  "logoutFailed": "Logout failed!"
+  "loginFailed": "Something went wrong with the login. Please try again."
 }

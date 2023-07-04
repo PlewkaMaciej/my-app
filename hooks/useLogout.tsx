@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "next-i18next";
 
 const useLogout = () => {
-  const { t } = useTranslation("login");
+  const { t } = useTranslation("common");
 
   const logoutUser = useCallback(() => {
     return signOut(auth);
