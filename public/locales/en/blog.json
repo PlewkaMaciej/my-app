@@ -10,5 +10,7 @@
   "title": "Title",
   "required": "Required",
   "addBlogText": "Add text",
-  "addPost": "Add new post"
+  "addPost": "Add new post",
+  "postSuccess": "Added new post",
+  "postFailed": "Something went wrong"
 }

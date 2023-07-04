@@ -2,18 +2,22 @@ import { CustomTextField } from "@/components/commons/Input/Input";
 import { Box } from "@mui/material";
 import { CustomButton } from "@/components/commons/Button/Button";
 import { useFormik } from "formik";
-import { signInInitialValues } from "../SignIn/InitialValues";
-import { passwordValidationSchema } from "../SignIn/ValidationSchema";
+import { signUpInitialValues } from "./InitialValues";
+import { SignUpValidationSchema } from "./ValidationSchema";
 import { useTranslation } from "next-i18next";
 import useRegister from "@/hooks/useRegister";
 
 export const SignUp = () => {
   const { t } = useTranslation("login");
   const formik = useFormik({
-    initialValues: signInInitialValues,
-    validationSchema: passwordValidationSchema,
+    initialValues: signUpInitialValues,
+    validationSchema: SignUpValidationSchema,
     onSubmit: async (values) => {
-      await register({ email: values.email, password: values.password });
+      await register({
+        email: values.email,
+        password: values.password,
+        nickname: values.nickname,
+      });
       formik.resetForm();
     },
   });
@@ -39,6 +43,16 @@ export const SignUp = () => {
           isError={!!(formik.touched.password && formik.errors.password)}
           error={formik.errors.password ? t(formik.errors.password) : ""}
           value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        <CustomTextField
+          name="nickname"
+          label={t("nickname")}
+          type="text"
+          isError={!!(formik.touched.nickname && formik.errors.nickname)}
+          error={formik.errors.nickname ? t(formik.errors.nickname) : ""}
+          value={formik.values.nickname}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />

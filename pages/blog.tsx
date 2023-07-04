@@ -10,6 +10,10 @@ import { CustomButton } from "@/components/commons/Button/Button";
 import { useRouter } from "next/router";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "react-toastify";
+import useGetPost from "@/hooks/useGetPosts";
+import { useEffect, useState } from "react";
+import Pagination from "@/components/Pagination/Pagination";
+
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale as string, [
@@ -21,10 +25,22 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
     ])),
   },
 });
+
 const Blog = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const { posts, postCount, totalPages } = useGetPost(currentPage, 1);
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
+
   const user = useAuth();
   const { push } = useRouter();
   const { t } = useTranslation(["blog"]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <Box
       sx={{
@@ -60,7 +76,16 @@ const Blog = () => {
             }}
           />
         </Box>
-        <BlogSection />
+        {posts && <BlogSection posts={posts} />}
+
+        {posts && (
+          <Pagination
+            count={postCount}
+            limitCount={1}
+            maxPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
       </Box>
       <Footer />
     </Box>

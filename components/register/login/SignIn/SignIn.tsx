@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { CustomButton } from "@/components/commons/Button/Button";
 import { useFormik } from "formik";
 import { signInInitialValues } from "./InitialValues";
-import { passwordValidationSchema } from "./ValidationSchema";
+import { SignInValidationSchema } from "./ValidationSchema";
 import { useTranslation } from "next-i18next";
 import useLogin from "@/hooks/useLogin";
 export const SignIn = () => {
@@ -12,7 +12,7 @@ export const SignIn = () => {
 
   const formik = useFormik({
     initialValues: signInInitialValues,
-    validationSchema: passwordValidationSchema,
+    validationSchema: SignInValidationSchema,
     onSubmit: (values) => {
       login(values);
     },

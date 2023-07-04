@@ -3,11 +3,17 @@ import { Box, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { useTranslation } from "next-i18next";
+import { addBlogInitialValues } from "../InitialValues";
+import { FormikProps } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { setText } from "@/redux/blogFormState";
+import { RootState } from "@/redux/store";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
-export const AddBlogText = () => {
+interface AddBlogText {
+  formik: FormikProps<typeof addBlogInitialValues>;
+}
+export const AddBlogText = ({ formik }: AddBlogText) => {
   const { t } = useTranslation("blog");
-  const [value, setValue] = useState("");
 
   const quillModules = {
     toolbar: [
@@ -33,17 +39,18 @@ export const AddBlogText = () => {
     "bullet",
     "link",
   ];
-
+  const dispatch = useDispatch();
+  const text = useSelector((state: RootState) => state.blogForm.text);
   const handleQuillChange = (content: string) => {
-    setValue(content);
-    console.log(content);
+    dispatch(setText(content));
+    formik.setFieldValue("text", content);
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
       <Typography variant="h6">{t("addBlogText")}</Typography>
       <ReactQuill
-        value={value}
+        value={text}
         onChange={handleQuillChange}
         modules={quillModules}
         formats={quillFormats}

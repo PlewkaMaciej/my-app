@@ -1,11 +1,16 @@
 import { Box } from "@mui/material";
-export const BlogSection = () => {
+import { DocumentData } from "firebase/firestore";
+
+interface BlogSectionInterface {
+  posts: DocumentData[];
+}
+export const BlogSection = ({ posts }: BlogSectionInterface) => {
   return (
     <Box
       sx={{
         justifyContent: "center",
         display: "flex",
-        paddingBottom: "120px",
+        paddingBottom: "20px",
       }}
     >
       <Box
@@ -22,7 +27,11 @@ export const BlogSection = () => {
           flexDirection: "column",
           gap: "24px",
         }}
-      ></Box>
+      >
+        <Box
+          sx={{ display: "flex", flexDirection: "column", gap: "24px" }}
+        ></Box>
+      </Box>
     </Box>
   );
 };

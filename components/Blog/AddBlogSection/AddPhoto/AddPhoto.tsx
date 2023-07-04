@@ -3,15 +3,28 @@ import { DeleteOutline } from "@mui/icons-material";
 import { useState } from "react";
 import { CustomButton } from "@/components/commons/Button/Button";
 import { useTranslation } from "next-i18next";
-export const AddPhoto = () => {
+import { FormikProps } from "formik";
+import { addBlogInitialValues } from "../InitialValues";
+import { setSelectedImageUrl } from "@/redux/blogFormState";
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+interface AddPhotoProps {
+  formik: FormikProps<typeof addBlogInitialValues>;
+}
+export const AddPhoto = ({ formik }: AddPhotoProps) => {
   const { t } = useTranslation("blog");
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const selectedImage = useSelector(
+    (state: RootState) => state.blogForm.selectedImage
+  );
+  const selectedImageUrl = useSelector(
+    (state: RootState) => state.blogForm.selectedImageUrl
+  );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setSelectedImage(e.target.files[0]);
-      setSelectedImageUrl(URL.createObjectURL(e.target.files[0]));
+      dispatch(setSelectedImageUrl(URL.createObjectURL(e.target.files[0])));
+      formik.setFieldValue("photo", e.target.files[0]);
       e.target.value = "";
     }
   };
@@ -25,15 +38,14 @@ export const AddPhoto = () => {
     if (e.dataTransfer.items && e.dataTransfer.items[0].kind === "file") {
       const file = e.dataTransfer.items[0].getAsFile();
       if (file) {
-        setSelectedImage(file);
-        setSelectedImageUrl(URL.createObjectURL(file));
+        dispatch(setSelectedImageUrl(URL.createObjectURL(file)));
+        formik.setFieldValue("photo", file);
       }
     }
   };
 
   const handleRemoveImage = () => {
-    setSelectedImage(null);
-    setSelectedImageUrl(null);
+    dispatch(setSelectedImageUrl(null));
   };
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>

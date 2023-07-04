@@ -6,7 +6,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ToastContainer } from "react-toastify"; // Dodaj import komponentu ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Dodaj import stylów CSS dla React Toastify
 import "@fontsource/roboto";
-
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
 export const theme = createTheme({
   typography: {
     fontFamily: "Roboto, sans-serif",
@@ -39,23 +40,25 @@ const toastStyle = {
 function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          closeOnClick
-          pauseOnHover
-          draggable
-          pauseOnFocusLoss={false}
-          style={toastContainerStyle}
-          toastStyle={toastStyle}
-        />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar
+            closeOnClick
+            pauseOnHover
+            draggable
+            pauseOnFocusLoss={false}
+            style={toastContainerStyle}
+            toastStyle={toastStyle}
+          />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </Provider>
   );
 }
 

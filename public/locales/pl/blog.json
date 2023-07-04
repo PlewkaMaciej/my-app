@@ -10,5 +10,7 @@
   "addTitle": "Dodaj tytuł bloga",
   "title": "Tytuł",
   "addBlogText": "Dodaj tekst",
-  "addPost": "Dodaj nowy post"
+  "addPost": "Dodaj nowy post",
+  "postSuccess": "Dodano nowy post",
+  "postFailed": "Coś poszło nie tak "
 }
