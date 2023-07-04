@@ -10,7 +10,7 @@ import { CustomButton } from "@/components/commons/Button/Button";
 import { useRouter } from "next/router";
 import useAuth from "@/hooks/useAuth";
 import { toast } from "react-toastify";
-import useGetPost from "@/hooks/useGetPosts";
+import useGetPosts from "@/hooks/useGetPosts";
 import { useEffect, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
 
@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { posts, postCount, totalPages } = useGetPost(currentPage, 1);
+  const { posts, postCount, totalPages } = useGetPosts(currentPage, 3);
   useEffect(() => {
     console.log(posts);
   }, [posts]);
@@ -81,7 +81,7 @@ const Blog = () => {
         {posts && (
           <Pagination
             count={postCount}
-            limitCount={1}
+            limitCount={3}
             maxPages={totalPages}
             onPageChange={handlePageChange}
           />

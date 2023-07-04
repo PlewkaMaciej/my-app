@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { firestore } from "@/firebase";
 
-const useGetPost = (page: number = 1, limitCount: number = 2) => {
+const useGetPosts = (page: number = 1, limitCount: number = 2) => {
   const [lastDoc, setLastDoc] =
     useState<QueryDocumentSnapshot<DocumentData> | null>(null);
 
@@ -67,4 +67,4 @@ const useGetPost = (page: number = 1, limitCount: number = 2) => {
   };
 };
 
-export default useGetPost;
+export default useGetPosts;

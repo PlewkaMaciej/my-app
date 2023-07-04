@@ -24,7 +24,7 @@ const useAddPost = () => {
   const uploadImage = async (file: File) => {
     const storageRef = ref(storage, "images/" + file.name);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
+    console.log(storage);
     return new Promise<string>((resolve, reject) => {
       uploadTask.on(
         "state_changed",
