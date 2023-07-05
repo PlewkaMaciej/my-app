@@ -28,10 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { posts, postCount, totalPages, isLoading } = useGetPosts(
-    currentPage,
-    8
-  );
+  const { posts, postCount, totalPages } = useGetPosts(currentPage, 8);
 
   const user = useAuth();
   const { push } = useRouter();
