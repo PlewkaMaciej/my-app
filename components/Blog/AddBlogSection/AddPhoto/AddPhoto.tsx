@@ -5,25 +5,17 @@ import { CustomButton } from "@/components/commons/Button/Button";
 import { useTranslation } from "next-i18next";
 import { FormikProps } from "formik";
 import { addBlogInitialValues } from "../InitialValues";
-import { setSelectedImageUrl } from "@/redux/blogFormState";
-import { RootState } from "@/redux/store";
-import { useDispatch, useSelector } from "react-redux";
 interface AddPhotoProps {
   formik: FormikProps<typeof addBlogInitialValues>;
 }
 export const AddPhoto = ({ formik }: AddPhotoProps) => {
   const { t } = useTranslation("blog");
-  const dispatch = useDispatch();
-  const selectedImage = useSelector(
-    (state: RootState) => state.blogForm.selectedImage
-  );
-  const selectedImageUrl = useSelector(
-    (state: RootState) => state.blogForm.selectedImageUrl
-  );
+
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      dispatch(setSelectedImageUrl(URL.createObjectURL(e.target.files[0])));
+      setSelectedImage(e.target.files[0]);
       formik.setFieldValue("photo", e.target.files[0]);
       e.target.value = "";
     }
@@ -38,14 +30,13 @@ export const AddPhoto = ({ formik }: AddPhotoProps) => {
     if (e.dataTransfer.items && e.dataTransfer.items[0].kind === "file") {
       const file = e.dataTransfer.items[0].getAsFile();
       if (file) {
-        dispatch(setSelectedImageUrl(URL.createObjectURL(file)));
+        setSelectedImage(file);
         formik.setFieldValue("photo", file);
       }
     }
   };
-
   const handleRemoveImage = () => {
-    dispatch(setSelectedImageUrl(null));
+    setSelectedImage(null);
   };
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -84,7 +75,7 @@ export const AddPhoto = ({ formik }: AddPhotoProps) => {
         <Typography>{t("dragAndDropFile")}</Typography>
       </Box>
 
-      {selectedImageUrl && (
+      {selectedImage && (
         <Box
           sx={{
             border: "1px solid grey",
@@ -97,26 +88,15 @@ export const AddPhoto = ({ formik }: AddPhotoProps) => {
             position: "relative",
           }}
         >
-          <CardMedia
-            component="img"
-            image={selectedImageUrl}
-            sx={{
+          <img
+            src={URL.createObjectURL(selectedImage)}
+            alt="Selected"
+            style={{
               width: "200px",
               height: "100px",
               objectFit: "contain",
             }}
           />
-          <IconButton
-            sx={{
-              position: "absolute",
-              bottom: "80px",
-              left: "170px",
-              width: "100px",
-            }}
-            onClick={handleRemoveImage}
-          >
-            <DeleteOutline />
-          </IconButton>
         </Box>
       )}
     </Box>

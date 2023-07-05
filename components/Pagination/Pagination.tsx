@@ -29,72 +29,30 @@ const Pagination = ({
     return <Typography>{t("noPostAddsome")}</Typography>;
   }
 
-  const renderPageNumbers = () => {
-    const pageNumbers = [];
-
-    if (totalPages <= 3) {
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(
-          <CustomButton
-            key={i}
-            text={i.toString()}
-            onClick={() => handlePageChange(i)}
-            disabled={i === currentPage}
-          />
-        );
-      }
-    } else if (currentPage <= 2) {
-      for (let i = 1; i <= 3; i++) {
-        pageNumbers.push(
-          <CustomButton
-            key={i}
-            text={i.toString()}
-            onClick={() => handlePageChange(i)}
-            disabled={i === currentPage}
-          />
-        );
-      }
-    } else if (currentPage >= totalPages - 1) {
-      for (let i = totalPages - 2; i <= totalPages; i++) {
-        pageNumbers.push(
-          <CustomButton
-            key={i}
-            text={i.toString()}
-            onClick={() => handlePageChange(i)}
-            disabled={i === currentPage}
-          />
-        );
-      }
-    } else {
-      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-        pageNumbers.push(
-          <CustomButton
-            key={i}
-            text={i.toString()}
-            onClick={() => handlePageChange(i)}
-            disabled={i === currentPage}
-          />
-        );
-      }
-    }
-
-    return pageNumbers;
-  };
-
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "row",
-        gap: "16px",
+        gap: "30px",
         justifyContent: "center",
-
         pb: "200px",
+        alignItems: "center",
       }}
     >
-      <Box sx={{ display: "flex", gap: "16px", alignItems: "center" }}>
-        {renderPageNumbers()}
-      </Box>
+      <CustomButton
+        style={{ width: "200px" }}
+        text={t("previous")}
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      />
+
+      <CustomButton
+        style={{ width: "200px" }}
+        text={t("next")}
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      />
     </Box>
   );
 };

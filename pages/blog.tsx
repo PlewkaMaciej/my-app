@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import Footer from "@/components/commons/Footer/Footer";
 import { Header } from "@/components/commons/Header/Header";
 import { BlogSection } from "@/components/Blog/BlogSection";
@@ -28,10 +28,10 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { posts, postCount, totalPages } = useGetPosts(currentPage, 3);
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
+  const { posts, postCount, totalPages, isLoading } = useGetPosts(
+    currentPage,
+    8
+  );
 
   const user = useAuth();
   const { push } = useRouter();
@@ -49,7 +49,7 @@ const Blog = () => {
         minHeight: "100vh",
       }}
     >
-      <Box>
+      <Box sx={{ flex: "1" }}>
         <Header />
         <Box
           sx={{
@@ -76,16 +76,19 @@ const Blog = () => {
             }}
           />
         </Box>
-        {posts && <BlogSection posts={posts} />}
 
-        {posts && (
-          <Pagination
-            count={postCount}
-            limitCount={3}
-            maxPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        )}
+        <Box sx={{ flex: "1", minHeight: "1000px" }}>
+          {posts && <BlogSection posts={posts} />}
+
+          {posts && (
+            <Pagination
+              count={postCount}
+              limitCount={8}
+              maxPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </Box>
       </Box>
       <Footer />
     </Box>

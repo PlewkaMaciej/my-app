@@ -3,10 +3,11 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@/firebase";
 
 const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(auth.currentUser);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log(user);
       if (user) {
         setUser(user);
       } else {
